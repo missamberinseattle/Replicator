@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Replicator", "Replicator\Replicator.csproj", "{B41CCAC9-BB65-4F29-9F91-97696DD54DBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReplTests", "ReplTests\ReplTests.csproj", "{BBA06132-EBB9-4393-A2BC-B9510FB2D2E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B41CCAC9-BB65-4F29-9F91-97696DD54DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B41CCAC9-BB65-4F29-9F91-97696DD54DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B41CCAC9-BB65-4F29-9F91-97696DD54DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B41CCAC9-BB65-4F29-9F91-97696DD54DBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA06132-EBB9-4393-A2BC-B9510FB2D2E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA06132-EBB9-4393-A2BC-B9510FB2D2E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA06132-EBB9-4393-A2BC-B9510FB2D2E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA06132-EBB9-4393-A2BC-B9510FB2D2E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A950B739-5DDD-4DBF-B26D-E21AED7DE36B}
+	EndGlobalSection
+EndGlobal

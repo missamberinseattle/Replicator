@@ -9,6 +9,7 @@
         Synced,
         Removed,
         Skipped,
-        NoFiles
+        NoFiles,
+        Aborted
     }
 }

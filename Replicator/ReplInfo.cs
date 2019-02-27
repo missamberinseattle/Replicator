@@ -22,15 +22,31 @@ namespace Replicator
         }
 
         public List<string> Roots { get; private set; }
-        public bool Removed { get;  set; }
+        public bool Removed { get; set; }
         public string FilePath { get; private set; }
 
         private Dictionary<int, FileInfo> _itemInfo = new Dictionary<int, FileInfo>();
-        
+
         public ReplicationStatus Remove()
         {
             var status = ReplicationStatus.Removed;
             var rootCount = 0;
+            var availableInAllRoots = true;
+
+            for (var idx = 0; idx < Roots.Count; idx++)
+            {
+                if (!File.Exists(GetFullPath(idx)))
+                {
+                    availableInAllRoots = false;
+                    break;
+                }
+            }
+
+            if (availableInAllRoots)
+            {
+                Logger.Warning("RepliInfo.Remove", "File exists in all roots, aborting replication");
+                return ReplicationStatus.Aborted;
+            }
 
             for (var idx = 0; idx < Roots.Count; idx++)
             {
@@ -82,24 +98,24 @@ namespace Replicator
             var files = GetFileDictionary();
 
             var dateSorted = (from d in files
-                          where d.Value != null
-                          orderby d.Value.LastWriteTime descending
-                          select d.Key).ToList();
+                              where d.Value != null
+                              orderby d.Value.LastWriteTime descending
+                              select d.Key).ToList();
 
             if (dateSorted.Count == 0)
             {
                 Logger.Info("ReplInfo.Sync", "No files to replicate");
                 return ReplicationStatus.NoFiles;
             }
-            
+
             var newest = dateSorted[0];
             var oldest = dateSorted[dateSorted.Count - 1];
 
             if (dateSorted.Count > 1)
             {
-                if (files[dateSorted[0]].LastWriteTime == files[dateSorted[dateSorted.Count-1]].LastWriteTime)
+                if (files[dateSorted[0]].LastWriteTime == files[dateSorted[dateSorted.Count - 1]].LastWriteTime)
                 {
-                    Logger.Verbose("ReplInfo.Sync", this.FilePath + "; All files with the same time stamp " + 
+                    Logger.Verbose("ReplInfo.Sync", this.FilePath + "; All files with the same time stamp " +
                         "(" + files[dateSorted[dateSorted.Count - 1]].LastWriteTime.ToString() + ")");
                     return ReplicationStatus.Synced;
                 }
@@ -141,7 +157,7 @@ namespace Replicator
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error("ReplInfo.Sync", "Could not set LastWrite on " + 
+                    Logger.Error("ReplInfo.Sync", "Could not set LastWrite on " +
                         dstPath + "; " + ex.Message);
                     errorRaised = true;
                 }
@@ -178,7 +194,7 @@ namespace Replicator
             {
                 return ReplicationStatus.WriteDateMismatch;
             }
-            
+
             return ReplicationStatus.Synced;
         }
 
@@ -186,7 +202,7 @@ namespace Replicator
         {
             var fileInfos = new Dictionary<int, FileInfo>();
 
-            for(var xx = 0; xx < Roots.Count; xx++)
+            for (var xx = 0; xx < Roots.Count; xx++)
             {
                 var path = GetFullPath(xx);
                 if (!File.Exists(path))
